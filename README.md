@@ -1,4 +1,4 @@
-# Game Genie Good Guy
+# Genie
 
 Patch your rom with Game Genie codes
 
