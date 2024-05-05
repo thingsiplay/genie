@@ -115,6 +115,37 @@ original file name. The script will also create a little log file as well.
 
 - [GameHacking](https://gamehacking.org/) (I recommend filter option device
   "Game Genie" and "Encrypted" enabled)
-  - Genesis / Mega Drive: [Batman Returns (World)](https://gamehacking.org/game/14798/?name=&format=genie&enc=on)
-  - NES: [Super Mario Bros. (World)](https://gamehacking.org/game/31010/?name=&format=genie&enc=on)
 - [GameGenie](https://www.gamegenie.com/)
+
+### Notes and examples codes
+
+I noticed lot of games and codes do not work for some systems; and none for the
+Super Nintendo. Maybe I broke something. For the Game Boy only those shorter 6
+letter codes worked. I'll list a few examples at this place, so you can at
+least try working codes for yourself.
+
+#### Genesis / Mega Drive [Batman Returns (World)](https://gamehacking.org/game/14798/?name=&format=genie&enc=on)
+
+Play The Demo Level!
+
+```
+GFJA-AAJW
+```
+
+#### NES [Super Mario Bros. (World)](https://gamehacking.org/game/31010/?name=&format=genie&enc=on)
+
+Fly With Button A
+
+```
+ZASLPKIO
+EASLLGLA
+ALSLGGEI
+```
+
+#### Game Boy [Super Mario Land (World) (Rev 1)](https://gamehacking.org/game/2008/?name=&format=genie&enc=on)
+
+Enemies fall from the sky / Some enemies are more elevated:
+
+```
+024-B4D
+```
