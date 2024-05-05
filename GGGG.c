@@ -14,8 +14,8 @@
 #include <glib/gstdio.h>
 #include <gmodule.h>
 #include <gtk/gtk.h>
-#include <math.h>    // dos/linux
-#include <setjmp.h>  // dos/linux
+// #include <math.h>    // dos/linux
+// #include <setjmp.h>  // dos/linux
 #include <stdarg.h>  // dos/linux
 #include <stdbool.h> // linux only
 #include <stddef.h>  // dos/linux
