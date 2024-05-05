@@ -1,0 +1,230 @@
+#!/usr/bin/env bash
+
+# A simple Kdialog interface to Game-Genie-Good-Guy and Flips on Linux
+# Copyright (C) 2024 Tuncay D.
+
+# https://github.com/thingsiplay/Game-Genie-Good-Guy
+# https://www.romhacking.net/utilities/1484/
+#
+# https://github.com/Alcaro/Flips
+# https://www.romhacking.net/utilities/1040/
+#
+# https://gamehacking.org/
+
+script_title='Game-Genie-Good-GuY GUI'
+# Set default append text here. An underscore is added automatically.
+filename_append='patched'
+
+genie_app_path='GGGG'
+flips_app_path='flips'
+dialog_app_path='kdialog'
+
+if [ -x "${genie_app_path}" ]; then
+	echo "Program not found: ${genie_app_path}" >&2
+	exit 1
+fi
+
+if [ -x "${flips_app_path}" ]; then
+	echo "Program not found: ${flips_app_path}" >&2
+	exit 1
+fi
+
+if [ -x "${dialog_app_path}" ]; then
+	echo "Program not found: ${flips_app_path}" >&2
+	exit 1
+fi
+
+dialog_radiolist() {
+	local title
+	local prompt
+	title="${1}"
+	prompt="${2}"
+	shift 2
+
+	entries=()
+	index=0
+	for entry in "${@}"; do
+		((index += 1))
+		entries+=("${index}" "${entry}" "off")
+	done
+	kdialog --title "${title}" \
+		--radiolist "${prompt}" \
+		"${entries[@]}"
+}
+
+get_cheat_type() {
+	local title="${1}"
+	local ext="${2}"
+	local selection=0
+
+	case "${ext}" in
+	gb | gbc | gg | sms)
+		selection=1
+		;;
+	md | gen)
+		selection=2
+		;;
+	nes)
+		selection=3
+		;;
+	smc | sfc)
+		selection=4
+		;;
+	*)
+		selection="$(
+			dialog_radiolist \
+				"${title}" \
+				'Choose a System:' \
+				'Game Boy / Game Gear / Master System' \
+				'Genesis / Mega Drive' \
+				'NES / Famicom' \
+				'Super Nintendo / Super Famicom'
+		)" || exit 1
+		if [ "${selection}" == '' ]; then
+			selection=0
+		fi
+		;;
+	esac
+
+	echo -n "${selection}"
+}
+
+create_romhack_file() {
+	if [ ${#} -ne 5 ]; then
+		exit 3
+	fi
+
+	local genie_codes="${1}"
+	local cheat_type="${2}"
+	local input_original="${3}"
+	local output_romhack="${4}"
+	local output_log="${5}"
+
+	# ./GGGG "[Codes one per line or combine with +]" [1-4] [originalrom] [newrom]
+	"${genie_app_path}" \
+		"${genie_codes}" \
+		"${cheat_type}" \
+		"${input_original}" \
+		"${output_romhack}" |
+		tee >>"${output_log}"
+}
+
+create_bps_file() {
+	if [ ${#} -ne 3 ]; then
+		exit 3
+	fi
+
+	local input_original="${1}"
+	local input_romhack="${2}"
+	local output_patch="${3}"
+
+	# ./flips [--create] [--exact] [--bps | etc] clean.smc hack.smc [patch.bps]
+	"${flips_app_path}" \
+		--create \
+		--bps-delta-moremem \
+		"${input_original}" \
+		"${input_romhack}" \
+		"${output_patch}"
+}
+
+add_md5_log() {
+	if [ ${#} -lt 2 ]; then
+		exit 3
+	fi
+
+	local output_log="${1}"
+
+	cat <<EOF >>"${output_log}"
+MD5:
+EOF
+
+	for file_to_hash in "${@:2}"; do
+		md5sum="$(md5sum --binary -- "${file_to_hash}" |
+			sed 's/ .*\// /')" || exit 1
+		cat <<EOF >>"${output_log}"
+${md5sum}
+EOF
+	done
+
+}
+
+if [ ${#} -eq 0 ]; then
+	game_path="$(kdialog --title "${script_title}" \
+		--getopenfilename)" || exit 1
+elif [ -d "${1}" ]; then
+	game_path="$(cd -- "${1}" && kdialog --title "${script_title}" \
+		--getopenfilename)" || exit 1
+elif [ -f "${1}" ]; then
+	game_path="${1}"
+else
+	echo 'Argument 1 must be a path to umodified ROM file.'
+	exit 2
+fi
+
+game_path_no_ext="${game_path%.*}"
+game_ext="${game_path##*.}"
+
+cheat_type="$(get_cheat_type "${script_title}" "${game_ext}")"
+if ! [[ "${cheat_type}" =~ [1-9] ]]; then
+	exit 1
+fi
+
+trim() {
+	printf '%s' "${*}" | sed -e 's/^[[:space:]]//' -e 's/[[:space:]]$//'
+}
+
+prompt='Enter Game Genie codes to inject.\nCombine multiple codes by "+" or newline:'
+input_codes="$(kdialog --title "${script_title}" --textinputbox "${prompt}" | tr '\n' '+')"
+trim "${input_codes%?}"
+
+# https://gamehacking.org/library/114
+# Game Boy and Game Gear:
+#   ABC-DEF-[GHI]
+# NES:
+#   XXX-XXX or XXXX-XXXX
+# SNES and MG:
+#   XXYY-YYYY
+#
+# Only very simple test, as I could not get it to work correctly otherwise.
+if [ "${input_codes}" == '' ]; then
+	exit 1
+elif [[ "${input_codes}" =~ [^0-9a-zA-Z\-:+]+ ]]; then
+	kdialog --error "Invalid code format: '${input_codes}'"
+	exit 1
+fi
+
+filename_append="$(
+	kdialog --title "${script_title}" \
+		--inputbox 'Append a descriptive text\nto output filename:\n' \
+		"${filename_append}"
+)" || exit 1
+
+path=${game_path_no_ext}_${filename_append}.${game_ext}
+output_game_path="${path}"
+output_patch_path="${path}.bps"
+output_log_path="${path}.log"
+
+cat <<EOF >"${output_log_path}"
+$(date)
+
+EOF
+
+create_romhack_file \
+	"${input_codes}" \
+	"${cheat_type}" \
+	"${game_path}" \
+	"${output_game_path}" \
+	"${output_log_path}" || exit 1
+
+create_bps_file \
+	"${game_path}" \
+	"${output_game_path}" \
+	"${output_patch_path}" || exit 1
+
+add_md5_log \
+	"${output_log_path}" \
+	"${game_path}" \
+	"${output_game_path}" || exit 1
+
+echo "${output_game_path}"
+exit 0
