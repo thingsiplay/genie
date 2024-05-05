@@ -101,23 +101,7 @@ The other parameters are determined by follow up graphical dialogs. Output file
 names and formats are determined automatically, based on user input and
 original file name. The script will also create a little log file as well.
 
-## See also
-
-### Tools
-
-- [Game Genie Guy](https://www.romhacking.net/utilities/1054/) (Original tool)
-- [Game Genie Good Guy](https://www.romhacking.net/utilities/1484/) / [Source](https://github.com/Mte90/Game-Genie-Good-Guy)
-  (The port and updated version of original tool)
-- [Flips](https://www.romhacking.net/utilities/1040/) / [Source](https://github.com/Alcaro/Flips)
-  (To create or apply patch files)
-
-### Websites with codes
-
-- [GameHacking](https://gamehacking.org/) (I recommend filter option device
-  "Game Genie" and "Encrypted" enabled)
-- [GameGenie](https://www.gamegenie.com/)
-
-### Notes and examples codes
+## Notes and working codes
 
 I noticed lot of games and codes do not work for some systems; and none for the
 Super Nintendo. Maybe I broke something. For the Game Boy only those shorter 6
@@ -149,3 +133,20 @@ Enemies fall from the sky / Some enemies are more elevated:
 ```
 024-B4D
 ```
+
+## See also
+
+### Tools
+
+- [Game Genie Guy](https://www.romhacking.net/utilities/1054/) (Original tool)
+- [Game Genie Good Guy](https://www.romhacking.net/utilities/1484/) / [Source](https://github.com/Mte90/Game-Genie-Good-Guy)
+  (The port and updated version of original tool)
+- [Flips](https://www.romhacking.net/utilities/1040/) / [Source](https://github.com/Alcaro/Flips)
+  (To create or apply patch files)
+
+### Recommended websites
+
+- [GameHacking](https://gamehacking.org/) (I recommend filter option device
+  "Game Genie" and "Encrypted" enabled)
+- [GameGenie](https://www.gamegenie.com/) (you need to change view to display
+  Game Genie codes)
