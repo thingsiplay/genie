@@ -1,4 +1,8 @@
-GGGG :
+.PHONY: all clean compile
+
+all: compile
+
+compile:
 	gcc \
 		-Wall \
 		-Os \
@@ -9,3 +13,6 @@ GGGG :
 		-o GGGG \
 		-lm \
 		-lgmodule-2.0
+
+clean:
+	rm -- GGGG
