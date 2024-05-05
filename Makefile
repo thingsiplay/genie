@@ -1,8 +1,10 @@
-.PHONY: all clean compile
+.PHONY: all c cpp clean
 
-all: compile
+default: c
 
-compile:
+all: clean c cpp
+
+c:
 	gcc \
 		-Wall \
 		-Os \
@@ -14,5 +16,20 @@ compile:
 		-lm \
 		-lgmodule-2.0
 
+cpp:
+	g++ \
+		-Wall \
+		-Os \
+		-Wformat \
+		-D_FORTIFY_SOURCE=2 \
+		-std=c++11 \
+		GGGG.cpp \
+		-ldl $$(pkg-config gtk+-3.0 glib-2.0 --cflags --libs ) \
+		-o GGGG++ \
+		-lm \
+		-lgmodule-2.0 \
+		-fpermissive
+
 clean:
-	rm -- GGGG
+	rm -f -- GGGG
+	rm -f -- GGGG++
