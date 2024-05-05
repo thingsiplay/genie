@@ -105,11 +105,16 @@ original file name. The script will also create a little log file as well.
 
 ### Tools
 
-- [Game Genie Guy](https://www.romhacking.net/utilities/1054/)
+- [Game Genie Guy](https://www.romhacking.net/utilities/1054/) (Original tool)
 - [Game Genie Good Guy](https://www.romhacking.net/utilities/1484/) / [Source](https://github.com/Mte90/Game-Genie-Good-Guy)
+  (The port and updated version of original tool)
 - [Flips](https://www.romhacking.net/utilities/1040/) / [Source](https://github.com/Alcaro/Flips)
+  (To create or apply patch files)
 
-### Websites
+### Websites with codes
 
-- [GameHacking](https://gamehacking.org/)
+- [GameHacking](https://gamehacking.org/) (I recommend filter option device
+  "Game Genie" and "Encrypted" enabled)
+  - Genesis / Mega Drive: [Batman Returns (World)](https://gamehacking.org/game/14798/?name=&format=genie&enc=on)
+  - NES: [Super Mario Bros. (World)](https://gamehacking.org/game/31010/?name=&format=genie&enc=on)
 - [GameGenie](https://www.gamegenie.com/)
