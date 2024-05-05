@@ -11,18 +11,18 @@ genie_app_path='GGGG'
 flips_app_path='flips'
 dialog_app_path='kdialog'
 
-if [ -x "${genie_app_path}" ]; then
+if ! command -v "${genie_app_path}" &>/dev/null; then
 	echo "Program not found: ${genie_app_path}" >&2
 	exit 1
 fi
 
-if [ -x "${flips_app_path}" ]; then
+if ! command -v "${flips_app_path}" &>/dev/null; then
 	echo "Program not found: ${flips_app_path}" >&2
 	exit 1
 fi
 
-if [ -x "${dialog_app_path}" ]; then
-	echo "Program not found: ${flips_app_path}" >&2
+if ! command -v "${dialog_app_path}" &>/dev/null; then
+	echo "Program not found: ${dialog_app_path}" >&2
 	exit 1
 fi
 
