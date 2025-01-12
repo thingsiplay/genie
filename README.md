@@ -148,5 +148,3 @@ Enemies fall from the sky / Some enemies are more elevated:
 
 - [GameHacking](https://gamehacking.org/) (I recommend filter option device
   "Game Genie" and "Encrypted" enabled)
-- [GameGenie](https://www.gamegenie.com/) (you need to change view to display
-  Game Genie codes)
