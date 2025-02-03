@@ -108,7 +108,7 @@ Super Nintendo. Maybe I broke something. For the Game Boy only those shorter 6
 letter codes worked. I'll list a few examples at this place, so you can at
 least try working codes for yourself.
 
-#### Genesis / Mega Drive [Batman Returns (World)](https://gamehacking.org/game/14798/?name=&format=genie&enc=on)
+### Genesis / Mega Drive [Batman Returns (World)](https://gamehacking.org/game/14798/?name=&format=genie&enc=on)
 
 Play The Demo Level!
 
@@ -116,7 +116,7 @@ Play The Demo Level!
 GFJA-AAJW
 ```
 
-#### NES [Super Mario Bros. (World)](https://gamehacking.org/game/31010/?name=&format=genie&enc=on)
+### NES [Super Mario Bros. (World)](https://gamehacking.org/game/31010/?name=&format=genie&enc=on)
 
 Fly With Button A
 
@@ -126,13 +126,25 @@ EASLLGLA
 ALSLGGEI
 ```
 
-#### Game Boy [Super Mario Land (World) (Rev 1)](https://gamehacking.org/game/2008/?name=&format=genie&enc=on)
+### Game Boy [Super Mario Land (World) (Rev 1)](https://gamehacking.org/game/2008/?name=&format=genie&enc=on)
 
 Enemies fall from the sky / Some enemies are more elevated:
 
 ```
 024-B4D
 ```
+
+### Some codes need to be split up
+
+I just noticed that some Game Boy codes are in 9 letter format like
+`C9D-BD9-C49` for "Super Mario Land (World).gb" (notice this is NOT Rev 1) to
+Disable Music. But this code does not work here as it is. Instead I use a "+"
+to split them into two codes like `C9D-BD9+C49` and then it works. These are
+codes I got from [GameHacking](https://gamehacking.org/), by setting the Filter
+to "Device" and "Encrypted" enabled as shown in the screenshot:
+
+![gamehackingorg_filter](gamehackingorg_filter.png)
+
 
 ## See also
 
